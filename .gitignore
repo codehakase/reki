@@ -1,0 +1,15 @@
+/bin/
+/dist/
+/seki
+
+*.test
+*.out
+coverage.*
+
+*.db
+*.db-wal
+*.db-shm
+
+.DS_Store
+.idea/
+.vscode/
