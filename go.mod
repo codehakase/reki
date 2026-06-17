@@ -1,4 +1,4 @@
-module github.com/codehakase/seki
+module github.com/codehakase/reki
 
 go 1.25.4
 

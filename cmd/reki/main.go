@@ -18,7 +18,7 @@ func main() {
 
 func newRootCmd() *cobra.Command {
 	root := &cobra.Command{
-		Use:           "seki",
+		Use:           "reki",
 		Short:         "Local-first shell history with fast search",
 		Version:       version,
 		SilenceUsage:  true,

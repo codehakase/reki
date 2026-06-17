@@ -43,16 +43,16 @@ type Entry struct {
 	Synced     bool
 }
 
-// Dir returns seki's data directory, honoring XDG_DATA_HOME.
+// Dir returns reki's data directory, honoring XDG_DATA_HOME.
 func Dir() (string, error) {
 	if xdg := os.Getenv("XDG_DATA_HOME"); xdg != "" {
-		return filepath.Join(xdg, "seki"), nil
+		return filepath.Join(xdg, "reki"), nil
 	}
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", fmt.Errorf("storage: resolve home dir: %w", err)
 	}
-	return filepath.Join(home, ".local", "share", "seki"), nil
+	return filepath.Join(home, ".local", "share", "reki"), nil
 }
 
 // Path returns the path to the local history database file.
