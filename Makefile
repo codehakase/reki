@@ -1,13 +1,16 @@
 BINARY  := reki
 PKG     := ./...
-TARGETS := linux/amd64 linux/arm64 darwin/arm64
+TARGETS := linux/amd64 linux/arm64 darwin/amd64 darwin/arm64
 VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
 LDFLAGS := -X main.version=$(VERSION)
 
-.PHONY: build test fmt vet vuln tidy cross clean
+.PHONY: build install test fmt vet vuln tidy cross clean
 
 build:
 	go build -ldflags '$(LDFLAGS)' -o bin/$(BINARY) ./cmd/reki
+
+install:
+	go install -ldflags '$(LDFLAGS)' ./cmd/reki
 
 test:
 	go test -race $(PKG)

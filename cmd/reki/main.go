@@ -28,14 +28,12 @@ func newRootCmd() *cobra.Command {
 
 	root.AddCommand(
 		stub("init", "Create the local DB and install the shell hook + Ctrl+R binding"),
-		stub("import <shell>", "Import an existing HISTFILE (zsh|bash|fish)"),
+		stub("import <shell>", "Import an existing HISTFILE (zsh|fish)"),
 		stub("s [query]", "Launch the fuzzy-search TUI"),
 		stub("stats", "Show analytics over local history"),
-		stub("forget", "Delete entries locally"),
-		stub("register", "Create a relay account"),
-		stub("login", "Log in to a relay account"),
-		stub("key", "Print the encryption key to copy to another machine"),
-		stub("sync", "Push/pull encrypted deltas to/from the relay"),
+		stub("forget <selector>", "Permanently delete matching entries"),
+		stub("export", "Write all history to stdout"),
+		stub("doctor", "Report instance health and configuration"),
 	)
 	return root
 }
