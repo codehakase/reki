@@ -3,6 +3,7 @@ package storage
 import (
 	"bufio"
 	"context"
+	"database/sql"
 	"errors"
 	"fmt"
 	"os"
@@ -64,6 +65,24 @@ func TestMigrateIsIdempotentAndConfiguresConnections(t *testing.T) {
 			}
 			if got != tt.want {
 				t.Fatalf("PRAGMA %s = %q, want %q", tt.pragma, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestBusyTimeoutIsFiveSecondsOnBothPools(t *testing.T) {
+	t.Parallel()
+
+	store := createTestStore(t, filepath.Join(t.TempDir(), "history.db"))
+	ctx := context.Background()
+	for name, db := range map[string]*sql.DB{"read": store.read, "write": store.write} {
+		t.Run(name, func(t *testing.T) {
+			var got string
+			if err := db.QueryRowContext(ctx, "PRAGMA busy_timeout").Scan(&got); err != nil {
+				t.Fatalf("query PRAGMA busy_timeout: %v", err)
+			}
+			if got != "5000" {
+				t.Fatalf("PRAGMA busy_timeout = %q, want 5000", got)
 			}
 		})
 	}
